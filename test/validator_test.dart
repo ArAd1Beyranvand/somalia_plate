@@ -4,7 +4,10 @@ import 'package:somalia_plate/somalia_plate.dart';
 
 void main() {
   PlateValidation judge(String value) => const SomaliaPlateValidator().validate(
-    PlateEntry(spec: SomaliaPlates.standard, values: value.split('')),
+    PlateEntry(
+      spec: SomaliaPlates.standard,
+      values: <String?>[value.substring(0, 2), value.substring(2)],
+    ),
   );
 
   test('accepts two letters and four digits', () {
@@ -15,7 +18,7 @@ void main() {
     expect(judge('A14657').isValid, isFalse);
   });
 
-  test('has six slots', () {
-    expect(SomaliaPlates.standard.slots.length, 6);
+  test('has a series slot and a number slot', () {
+    expect(SomaliaPlates.standard.slots.length, 2);
   });
 }

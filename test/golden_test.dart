@@ -33,10 +33,10 @@ void main() {
 
   for (final (name, spec, theme, values) in cases) {
     testWidgets(name, (tester) async {
-      final controller = PlateController.fromValues(
-        spec,
-        values.split('').toList(),
-      );
+      final controller = PlateController.fromValues(spec, <String?>[
+        values.substring(0, 2),
+        values.substring(2),
+      ]);
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -68,4 +68,11 @@ void main() {
       controller.dispose();
     });
   }
+
+  test('the series and the number are one slot each', () {
+    expect(SomaliaPlates.standard.slots.map((PlateSlot s) => s.length), <int>[
+      2,
+      4,
+    ]);
+  });
 }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/widgets.dart';
 import 'package:plate_core/plate_core.dart';
 
@@ -47,18 +49,21 @@ abstract final class _Layout {
 
   static const double serialTop = 69.8;
   static const double serialHeight = 130;
-  static const double letterWidth = 96;
+  static const double letterPitch = 96.3;
   static const List<double> letterCentres = <double>[75.4, 171.7];
   static const double digitPitch = 68.5;
   static const double digitFirstCentre = 253.9;
   static const int digits = 4;
 }
 
+double _spacing(double pitch) =>
+    max(0, pitch - 0.6 * 0.72 * _Layout.serialHeight);
+
 abstract final class SomaliaPlates {
   /// `AD 4657`: two letters and four digits under `SOM`, the arms and
   /// `الصومال`. Pair with `SomaliaThemes.standard`.
   ///
-  /// Slots: the two letters, then the four digits.
+  /// Slots: the two letters as one field, then the four digits as one.
   static final PlateSpec standard = PlateSpec(
     id: 'so.standard',
     country: SomaliaCountry.somalia,
@@ -67,11 +72,7 @@ abstract final class SomaliaPlates {
     panel: const PlatePanel(box: PlateBox(0, 0, 0, 0)),
     noPanel: true,
     labels: const <PlateLabel>[
-      PlateLabel(
-        text: 'SOM',
-        box: _Layout.som,
-        glyphHeight: _Layout.somGlyph,
-      ),
+      PlateLabel(text: 'SOM', box: _Layout.som, glyphHeight: _Layout.somGlyph),
       PlateLabel(
         text: 'الصومال',
         box: _Layout.arabic,
@@ -88,29 +89,32 @@ abstract final class SomaliaPlates {
       ),
     ],
     slots: <PlateSlot>[
-      for (final double c in _Layout.letterCentres)
-        PlateSlot(
-          alphabet: SomaliaAlphabets.letters,
-          box: PlateBox(
-            c - _Layout.letterWidth / 2,
-            _Layout.serialTop,
-            _Layout.letterWidth,
-            _Layout.serialHeight,
-          ),
+      PlateSlot(
+        alphabet: SomaliaAlphabets.letters,
+        box: PlateBox(
+          _Layout.letterCentres.first - _Layout.letterPitch / 2,
+          _Layout.serialTop,
+          2 * _Layout.letterPitch,
+          _Layout.serialHeight,
         ),
-      ...plateRegister(
+        length: 2,
+        spacing: _spacing(_Layout.letterPitch),
+      ),
+      PlateSlot(
         alphabet: SomaliaAlphabets.digits,
-        count: _Layout.digits,
-        left: _Layout.digitFirstCentre - _Layout.digitPitch / 2,
-        top: _Layout.serialTop,
-        width: _Layout.digitPitch,
-        height: _Layout.serialHeight,
-        pitch: _Layout.digitPitch,
+        box: PlateBox(
+          _Layout.digitFirstCentre - _Layout.digitPitch / 2,
+          _Layout.serialTop,
+          _Layout.digits * _Layout.digitPitch,
+          _Layout.serialHeight,
+        ),
+        length: _Layout.digits,
+        spacing: _spacing(_Layout.digitPitch),
       ),
     ],
     textGroups: const <PlateTextGroup>[
-      PlateTextGroup(<int>[0, 1], key: 'series'),
-      PlateTextGroup(<int>[2, 3, 4, 5], key: 'number'),
+      PlateTextGroup(<int>[0], key: 'series'),
+      PlateTextGroup(<int>[1], key: 'number'),
     ],
   );
 
