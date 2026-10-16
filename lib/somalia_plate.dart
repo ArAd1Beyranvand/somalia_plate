@@ -1,8 +1,5 @@
-/// Somalia's licence plates for the `plate_core` library.
-///
-/// The bilingual plate: `SOM`, the coat of arms and `الصومال` over a two-letter,
-/// four-digit serial, black on white. Only this one design is documented; the
-/// Italian colonial and Puntland series are not implemented.
+/// Somali licence plates for `plate_core`: only the bilingual plate is
+/// documented, so the colonial and Puntland series are not implemented.
 library;
 
 export 'src/somalia_alphabets.dart';

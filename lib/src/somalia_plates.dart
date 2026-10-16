@@ -23,18 +23,12 @@ import 'somalia_country.dart';
 ///   `D` 142.4..201.0; digits 225.4..282.5, 297.7..347.2, 365.4..414.9,
 ///   436.3..482.7 — centres 253.9, 322.5, 390.2, 459.5, pitch 68.5.
 ///
-/// Rendered with DejaVu Bold and Noto Sans Arabic Bold and measured the same
-/// way: `SOM` x 30..177, y 21..67; `الصومال` x 283..492, y 19..70; digits
-/// within 3 of the reference on x.
-///
 /// **Under-height serial and `SOM`, accepted.** The plate prints a glyph 93.5
 /// tall on a 200 canvas; a slot's ink is ~55% of its box, so the reference
 /// would need a 170 box centred at 133.3, which runs off the canvas. The box
 /// is 130, the tallest that stays inside once centred, and the ink is y 98..167
 /// (69 tall, 74% of the reference, centred 2 low). `SOM` is width-limited by
 /// DejaVu's wider letters: 46 tall against 54.8. `plate_core` is unchanged.
-///
-/// **Not drawn.** The faint embossed rivet marks and the plate's shadow.
 abstract final class _Layout {
   static const double width = 520;
   static const double height = 200;
@@ -62,8 +56,6 @@ double _spacing(double pitch) =>
 abstract final class SomaliaPlates {
   /// `AD 4657`: two letters and four digits under `SOM`, the arms and
   /// `الصومال`. Pair with `SomaliaThemes.standard`.
-  ///
-  /// Slots: the two letters as one field, then the four digits as one.
   static final PlateSpec standard = PlateSpec(
     id: 'so.standard',
     country: SomaliaCountry.somalia,
