@@ -33,20 +33,10 @@ abstract final class _Layout {
   static const double serialHeight = 130;
 }
 
-PlateSlot _serialSlot(
-  PlateAlphabet alphabet,
-  double firstCentre,
-  double pitch,
-  int length,
-) {
+PlateSlot _serialSlot(PlateAlphabet alphabet, double firstCentre, double pitch, int length) {
   return PlateSlot(
     alphabet: alphabet,
-    box: PlateBox(
-      firstCentre - pitch / 2,
-      _Layout.serialTop,
-      length * pitch,
-      _Layout.serialHeight,
-    ),
+    box: PlateBox(firstCentre - pitch / 2, _Layout.serialTop, length * pitch, _Layout.serialHeight),
     length: length,
     spacing: max(0, pitch - 0.6 * 0.72 * _Layout.serialHeight),
   );
@@ -64,18 +54,11 @@ abstract final class SomaliaPlates {
     noPanel: true,
     labels: const <PlateLabel>[
       PlateLabel(text: 'SOM', box: _Layout.som, glyphHeight: _Layout.somGlyph),
-      PlateLabel(
-        text: 'الصومال',
-        box: _Layout.arabic,
-        glyphHeight: _Layout.arabicGlyph,
-      ),
+      PlateLabel(text: 'الصومال', box: _Layout.arabic, glyphHeight: _Layout.arabicGlyph),
     ],
     decals: const <PlateDecal>[
       PlateDecal(
-        image: AssetImage(
-          'assets/emblem/Coat_of_arms_of_Somalia.png',
-          package: 'somalia_plate',
-        ),
+        image: AssetImage('assets/emblem/Coat_of_arms_of_Somalia.png', package: 'somalia_plate'),
         box: _Layout.arms,
       ),
     ],

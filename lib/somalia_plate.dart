@@ -8,3 +8,4 @@ export 'src/somalia_country.dart';
 export 'src/somalia_plates.dart';
 export 'src/somalia_themes.dart';
 export 'src/somalia_validators.dart';
+export 'src/somaliland/somaliland_plate.dart';

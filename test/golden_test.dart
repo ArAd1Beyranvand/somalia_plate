@@ -56,23 +56,15 @@ void main() {
       );
       // The arms decode off the real event loop, which fake time does not
       // advance; runAsync gives them a real slice of time.
-      await tester.runAsync(
-        () => Future<void>.delayed(const Duration(milliseconds: 50)),
-      );
+      await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 50)));
       await tester.pumpAndSettle();
-      await expectLater(
-        find.byType(PlateView),
-        matchesGoldenFile('goldens/$name.png'),
-      );
+      await expectLater(find.byType(PlateView), matchesGoldenFile('goldens/$name.png'));
       await tester.pumpWidget(const SizedBox.shrink());
       controller.dispose();
     });
   }
 
   test('the series and the number are one slot each', () {
-    expect(SomaliaPlates.standard.slots.map((PlateSlot s) => s.length), <int>[
-      2,
-      4,
-    ]);
+    expect(SomaliaPlates.standard.slots.map((PlateSlot s) => s.length), <int>[2, 4]);
   });
 }
