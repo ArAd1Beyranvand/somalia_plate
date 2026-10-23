@@ -40,7 +40,7 @@ abstract final class _Layout {
   static const double serialCy = 124.5, serialBox = 118;
 
   static const double oldHeight = 238;
-  static const double oldNameBox = 50, oldCaptionCy = 34;
+  static const double oldNameBox = 50;
   static const PlateBox oldCaption = PlateBox(20, 9, 115, 50);
   static const PlateBox oldArabicName = PlateBox(20, 165, 117, 50);
   static const double oldRowCy = 66.5, oldRowBox = 120;
