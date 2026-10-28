@@ -26,20 +26,32 @@ void main() {
 
   /// category id -> (spec, theme, sample value: one space-separated token
   /// per slot, i.e. per field — `'AB 1234'`, never `'A B 1 2 3 4'`)
-  final Map<String, (PlateSpec, PlateTheme, String)> cases =
-      <String, (PlateSpec, PlateTheme, String)>{
-        'private': (SomalilandPlates.private, SomalilandThemes.private, 'A1234 AW'),
-        'government': (SomalilandPlates.official, SomalilandThemes.government, 'B1234'),
-        'ngo': (SomalilandPlates.official, SomalilandThemes.ngo, 'C1234'),
-        'un': (SomalilandPlates.official, SomalilandThemes.un, 'D1234'),
-        'diplomatic': (SomalilandPlates.official, SomalilandThemes.diplomatic, 'E1234'),
-        'bilingual': (SomalilandPlates.bilingual, SomalilandThemes.ngo, 'B 366'),
-      };
+  final Map<String, (PlateSpec, PlateTheme, String)>
+  cases = <String, (PlateSpec, PlateTheme, String)>{
+    'private': (SomalilandPlates.private, SomalilandThemes.private, 'A1234 AW'),
+    'government': (
+      SomalilandPlates.official,
+      SomalilandThemes.government,
+      'B1234',
+    ),
+    'ngo': (SomalilandPlates.official, SomalilandThemes.ngo, 'C1234'),
+    'un': (SomalilandPlates.official, SomalilandThemes.un, 'D1234'),
+    'diplomatic': (
+      SomalilandPlates.official,
+      SomalilandThemes.diplomatic,
+      'E1234',
+    ),
+    'bilingual': (SomalilandPlates.bilingual, SomalilandThemes.ngo, 'B 366'),
+  };
 
-  for (final MapEntry<String, (PlateSpec, PlateTheme, String)> c in cases.entries) {
+  for (final MapEntry<String, (PlateSpec, PlateTheme, String)> c
+      in cases.entries) {
     testWidgets(c.key, (tester) async {
       final (PlateSpec spec, PlateTheme theme, String values) = c.value;
-      final PlateController controller = PlateController.fromValues(spec, values.split(' '));
+      final PlateController controller = PlateController.fromValues(
+        spec,
+        values.split(' '),
+      );
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -61,7 +73,10 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      await expectLater(find.byType(PlateView), matchesGoldenFile('goldens/so_${c.key}.png'));
+      await expectLater(
+        find.byType(PlateView),
+        matchesGoldenFile('goldens/so_${c.key}.png'),
+      );
       await tester.pumpWidget(const SizedBox.shrink());
       controller.dispose();
     });

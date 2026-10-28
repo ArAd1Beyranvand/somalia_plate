@@ -21,15 +21,20 @@ class SomalilandValidator extends PlateValidator {
     if (old) {
       final String number = entry.group('letter') + entry.group('number');
       if (!_old.hasMatch(number)) {
-        return const PlateValidation.invalid('A letter and one to three digits.');
+        return const PlateValidation.invalid(
+          'A letter and one to three digits.',
+        );
       }
       return const PlateValidation.valid();
     }
     if (!_serial.hasMatch(entry.group('serial'))) {
-      return const PlateValidation.invalid('A class letter A–E and four digits.');
+      return const PlateValidation.invalid(
+        'A class letter A–E and four digits.',
+      );
     }
     final bool hasRegion = groups.any((PlateTextGroup g) => g.key == 'region');
-    if (hasRegion && !SomalilandAlphabets.regionCodes.contains(entry.group('region'))) {
+    if (hasRegion &&
+        !SomalilandAlphabets.regionCodes.contains(entry.group('region'))) {
       return const PlateValidation.invalid('Unknown division code.');
     }
     return const PlateValidation.valid();

@@ -101,8 +101,16 @@ abstract final class SomalilandPlates {
       ),
     ],
     labels: const <PlateLabel>[
-      PlateLabel(text: 'S.LAND', box: _Layout.oldCaption, glyphHeight: _Layout.oldNameBox),
-      PlateLabel(text: 'ص.لاند', box: _Layout.oldArabicName, glyphHeight: _Layout.oldNameBox),
+      PlateLabel(
+        text: 'S.LAND',
+        box: _Layout.oldCaption,
+        glyphHeight: _Layout.oldNameBox,
+      ),
+      PlateLabel(
+        text: 'ص.لاند',
+        box: _Layout.oldArabicName,
+        glyphHeight: _Layout.oldNameBox,
+      ),
     ],
     textGroups: <PlateTextGroup>[
       PlateTextGroup(<int>[0], key: 'letter'),
@@ -110,14 +118,14 @@ abstract final class SomalilandPlates {
     ],
   );
 
-  static List<PlateSpec> get all => <PlateSpec>[
-    private,
-    official,
-    bilingual,
-  ];
+  static List<PlateSpec> get all => <PlateSpec>[private, official, bilingual];
 
-  static PlateBox _row(double x0, double x1) =>
-      PlateBox(x0, _Layout.oldRowCy - _Layout.oldRowBox / 2, x1 - x0, _Layout.oldRowBox);
+  static PlateBox _row(double x0, double x1) => PlateBox(
+    x0,
+    _Layout.oldRowCy - _Layout.oldRowBox / 2,
+    x1 - x0,
+    _Layout.oldRowBox,
+  );
 
   static PlateSpec _modern(String id, {bool region = false}) {
     const double serialWidth = _Layout.serialX1 - _Layout.serialX0;
@@ -202,14 +210,16 @@ abstract final class SomalilandPlates {
     PlateCircleShape(50, 50, 40, SomalilandColors.emblemGold),
   ]);
 
-  static final Map<String, (String, PlateTheme)> _classes = <String, (String, PlateTheme)>{
-    'B': ('GT', SomalilandThemes.government),
-    'C': ('NG', SomalilandThemes.ngo),
-    'D': ('UN', SomalilandThemes.un),
-    'E': ('CD', SomalilandThemes.diplomatic),
-  };
+  static final Map<String, (String, PlateTheme)> _classes =
+      <String, (String, PlateTheme)>{
+        'B': ('GT', SomalilandThemes.government),
+        'C': ('NG', SomalilandThemes.ngo),
+        'D': ('UN', SomalilandThemes.un),
+        'E': ('CD', SomalilandThemes.diplomatic),
+      };
 
-  static String? _codeOf(String Function(String) group) => _classes[_letter(group('serial'))]?.$1;
+  static String? _codeOf(String Function(String) group) =>
+      _classes[_letter(group('serial'))]?.$1;
 
   static PlateTheme _themeOf(PlateTheme base, String Function(String) group) =>
       _classes[_letter(group('serial'))]?.$2 ?? base;
