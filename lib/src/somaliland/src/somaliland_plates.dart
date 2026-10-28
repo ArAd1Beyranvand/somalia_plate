@@ -51,7 +51,7 @@ abstract final class _Layout {
 
 /// Somaliland's plates, in two designs.
 ///
-/// * 2018 ([private], [government], [ngo], [un], [diplomatic]): the emblem and
+/// * 2018 ([private], [official]): the emblem and
 ///   `SOMALILAND` across the top, a class code at the left and the serial, a
 ///   class letter and four digits (`C1234`), as one field. Private plates
 ///   stack `PR` over a division code picked from the article's table; the
@@ -67,11 +67,11 @@ abstract final class _Layout {
 /// Not implemented: the 1996 series (`SOMALILAND` in full, superseded). The
 /// article names no Israel-specific value.
 abstract final class SomalilandPlates {
-  static final PlateSpec private = _modern('xs.private', code: 'PR', region: true);
-  static final PlateSpec government = _modern('xs.government', code: 'GT');
-  static final PlateSpec ngo = _modern('xs.ngo', code: 'NG');
-  static final PlateSpec un = _modern('xs.un', code: 'UN');
-  static final PlateSpec diplomatic = _modern('xs.diplomatic', code: 'CD');
+  static final PlateSpec private = _modern('xs.private', region: true);
+
+  /// Government, NGO, UN and diplomatic: the serial's class letter (`B`-`E`)
+  /// picks the printed code and the livery.
+  static final PlateSpec official = _modern('xs.official');
 
   static final PlateSpec bilingual = PlateSpec(
     id: 'xs.bilingual',
@@ -112,17 +112,14 @@ abstract final class SomalilandPlates {
 
   static List<PlateSpec> get all => <PlateSpec>[
     private,
-    government,
-    ngo,
-    un,
-    diplomatic,
+    official,
     bilingual,
   ];
 
   static PlateBox _row(double x0, double x1) =>
       PlateBox(x0, _Layout.oldRowCy - _Layout.oldRowBox / 2, x1 - x0, _Layout.oldRowBox);
 
-  static PlateSpec _modern(String id, {required String code, bool region = false}) {
+  static PlateSpec _modern(String id, {bool region = false}) {
     const double serialWidth = _Layout.serialX1 - _Layout.serialX0;
     return PlateSpec(
       id: id,
@@ -166,7 +163,8 @@ abstract final class SomalilandPlates {
           glyphHeight: _Layout.captionBox,
         ),
         PlateLabel(
-          text: code,
+          text: region ? 'PR' : 'GT',
+          resolve: region ? null : _codeOf,
           box: region
               ? PlateBox(
                   _Layout.codeX0,
@@ -188,6 +186,7 @@ abstract final class SomalilandPlates {
         PlateTextGroup(<int>[0], key: 'serial'),
         if (region) PlateTextGroup(<int>[1], key: 'region'),
       ],
+      resolveTheme: region ? null : _themeOf,
     );
   }
 
@@ -203,12 +202,17 @@ abstract final class SomalilandPlates {
     PlateCircleShape(50, 50, 40, SomalilandColors.emblemGold),
   ]);
 
-  /// The theme each spec is drawn in by default.
-  static PlateTheme themeOf(PlateSpec spec) => switch (spec.id) {
-    'xs.private' => SomalilandThemes.private,
-    'xs.government' => SomalilandThemes.government,
-    'xs.un' => SomalilandThemes.un,
-    'xs.diplomatic' => SomalilandThemes.diplomatic,
-    _ => SomalilandThemes.ngo,
+  static final Map<String, (String, PlateTheme)> _classes = <String, (String, PlateTheme)>{
+    'B': ('GT', SomalilandThemes.government),
+    'C': ('NG', SomalilandThemes.ngo),
+    'D': ('UN', SomalilandThemes.un),
+    'E': ('CD', SomalilandThemes.diplomatic),
   };
+
+  static String? _codeOf(String Function(String) group) => _classes[_letter(group('serial'))]?.$1;
+
+  static PlateTheme _themeOf(PlateTheme base, String Function(String) group) =>
+      _classes[_letter(group('serial'))]?.$2 ?? base;
+
+  static String _letter(String serial) => serial.isEmpty ? '' : serial[0];
 }

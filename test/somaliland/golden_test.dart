@@ -29,10 +29,10 @@ void main() {
   final Map<String, (PlateSpec, PlateTheme, String)> cases =
       <String, (PlateSpec, PlateTheme, String)>{
         'private': (SomalilandPlates.private, SomalilandThemes.private, 'A1234 AW'),
-        'government': (SomalilandPlates.government, SomalilandThemes.government, 'B1234'),
-        'ngo': (SomalilandPlates.ngo, SomalilandThemes.ngo, 'C1234'),
-        'un': (SomalilandPlates.un, SomalilandThemes.un, 'D1234'),
-        'diplomatic': (SomalilandPlates.diplomatic, SomalilandThemes.diplomatic, 'E1234'),
+        'government': (SomalilandPlates.official, SomalilandThemes.government, 'B1234'),
+        'ngo': (SomalilandPlates.official, SomalilandThemes.ngo, 'C1234'),
+        'un': (SomalilandPlates.official, SomalilandThemes.un, 'D1234'),
+        'diplomatic': (SomalilandPlates.official, SomalilandThemes.diplomatic, 'E1234'),
         'bilingual': (SomalilandPlates.bilingual, SomalilandThemes.ngo, 'B 366'),
       };
 
