@@ -221,6 +221,9 @@ abstract final class SomalilandPlates {
   static String? _codeOf(String Function(String) group) =>
       _classes[_letter(group('serial'))]?.$1;
 
+  // TODO(py): [D4-table] lookup table: becomes a dict in the export, no code.
+  // TODO(ts): [D4-table] lookup table: becomes data in the export, no code.
+  // TODO(kt): [D4-table] lookup table: becomes a map in the export, no code.
   static PlateTheme _themeOf(PlateTheme base, String Function(String) group) =>
       _classes[_letter(group('serial'))]?.$2 ?? base;
 
