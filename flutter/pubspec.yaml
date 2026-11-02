@@ -1,7 +1,7 @@
 name: somalia_plate
 description: "Somalia's licence plates for the plate_core library — the bilingual SOM / الصومال plate with the coat of arms, its theme and an advisory validator."
 version: 0.1.0
-repository: https://github.com/ArAd1Beyranvand/somalia_plate
+repository: https://github.com/ArAd1Beyranvand/somalia_plate/tree/main/flutter
 resolution: workspace
 
 environment:
