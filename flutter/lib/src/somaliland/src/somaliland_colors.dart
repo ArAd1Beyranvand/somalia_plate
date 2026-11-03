@@ -34,6 +34,4 @@ abstract final class SomalilandColors {
   /// Emblem disc, read off the chart's crest.
   static const Color emblemGold = Color(0xFFD9B545); // CALIBRATE
   static const Color emblemGreen = Color(0xFF5E9B3C); // CALIBRATE
-
-  static const Color inactive = Color(0xFFB0B0B0);
 }

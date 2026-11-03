@@ -7,7 +7,6 @@ import 'somalia_colors.dart';
 abstract final class SomaliaCountry {
   static const PlateCountry somalia = PlateCountry(
     code: 'so',
-    captionLines: <String>[],
     panelColor: SomaliaColors.white,
     panelTextColor: SomaliaColors.ink,
   );

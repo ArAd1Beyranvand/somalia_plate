@@ -6,7 +6,7 @@ GO VEGAN 🌱
 
 From the mighty people of Iran to the resilient people of Somaliland to view examples:
 
-https://platexample.ir/#/discover/somaliland
+https://platexample.ir/#/discover/somaliland:flutter
 
 # somaliland_plate
 

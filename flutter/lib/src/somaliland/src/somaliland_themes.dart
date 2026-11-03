@@ -31,7 +31,6 @@ abstract final class SomalilandThemes {
 PlateTheme _ink(Color field, Color ink) => PlateTheme.monochrome(
   field: field,
   ink: ink,
-  inactive: SomalilandColors.inactive,
   borderWidthRatio: 0.025,
   plateRadiusRatio: 0.05,
 );

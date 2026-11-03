@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:plate_alphabet/plate_alphabet.dart';
 import 'package:plate_core/plate_core.dart';
 
@@ -39,8 +37,7 @@ abstract final class _Layout {
   static const double serialX0 = 135, serialX1 = 482;
   static const double serialCy = 124.5, serialBox = 118;
 
-  static const double oldHeight = 238;
-  static const double oldNameBox = 50;
+  static const double oldHeight = 238, oldNameBox = 50;
   static const PlateBox oldCaption = PlateBox(20, 9, 115, 50);
   static const PlateBox oldArabicName = PlateBox(20, 165, 117, 50);
   static const double oldRowCy = 66.5, oldRowBox = 120;
@@ -78,18 +75,18 @@ abstract final class SomalilandPlates {
     country: SomalilandCountry.somaliland,
     canvasWidth: _Layout.width,
     canvasHeight: _Layout.oldHeight,
-    panel: const PlatePanel(box: PlateBox(0, 0, 0, 0)),
-    noPanel: true,
     slots: <PlateSlot>[
       PlateSlot(
         alphabet: SomalilandAlphabets.letters,
         box: _row(_Layout.letterX0, _Layout.letterX1),
+        group: 'letter',
       ),
       PlateSlot(
         alphabet: SomalilandAlphabets.digits,
         box: _row(_Layout.digitsX0, _Layout.digitsX1),
         length: 3,
         minLength: 1,
+        group: 'number',
       ),
     ],
     mirrors: const <PlateMirror>[
@@ -112,10 +109,6 @@ abstract final class SomalilandPlates {
         glyphHeight: _Layout.oldNameBox,
       ),
     ],
-    textGroups: <PlateTextGroup>[
-      PlateTextGroup(<int>[0], key: 'letter'),
-      PlateTextGroup(<int>[1], key: 'number'),
-    ],
   );
 
   static List<PlateSpec> get all => <PlateSpec>[private, official, bilingual];
@@ -134,19 +127,14 @@ abstract final class SomalilandPlates {
       country: SomalilandCountry.somaliland,
       canvasWidth: _Layout.width,
       canvasHeight: _Layout.height,
-      panel: const PlatePanel(box: PlateBox(0, 0, 0, 0)),
-      noPanel: true,
       slots: <PlateSlot>[
-        PlateSlot(
-          alphabet: SomalilandAlphabets.serial,
-          box: PlateBox(
-            _Layout.serialX0,
-            _Layout.serialCy - _Layout.serialBox / 2,
-            serialWidth,
-            _Layout.serialBox,
-          ),
-          length: 5,
-          spacing: max(0, serialWidth / 5 - 0.6 * 0.72 * _Layout.serialBox),
+        plateRun(
+          SomalilandAlphabets.serial,
+          5,
+          left: _Layout.serialX0,
+          top: _Layout.serialCy - _Layout.serialBox / 2,
+          pitch: serialWidth / 5,
+          height: _Layout.serialBox,
         ),
         if (region)
           PlateSlot(
@@ -162,9 +150,9 @@ abstract final class SomalilandPlates {
       labels: <PlateLabel>[
         const PlateLabel(
           text: 'SOMALILAND',
-          box: PlateBox(
-            _Layout.captionCx - _Layout.captionWidth / 2,
-            _Layout.captionCy - _Layout.captionBox / 2,
+          box: PlateBox.centered(
+            _Layout.captionCx,
+            _Layout.captionCy,
             _Layout.captionWidth,
             _Layout.captionBox,
           ),
@@ -198,9 +186,9 @@ abstract final class SomalilandPlates {
     );
   }
 
-  static const PlateBox _emblemBox = PlateBox(
-    _Layout.emblemCx - _Layout.emblemSize / 2,
-    _Layout.emblemCy - _Layout.emblemSize / 2,
+  static const PlateBox _emblemBox = PlateBox.centered(
+    _Layout.emblemCx,
+    _Layout.emblemCy,
     _Layout.emblemSize,
     _Layout.emblemSize,
   );
@@ -221,9 +209,6 @@ abstract final class SomalilandPlates {
   static String? _codeOf(String Function(String) group) =>
       _classes[_letter(group('serial'))]?.$1;
 
-  // TODO(py): [D4-table] lookup table: becomes a dict in the export, no code.
-  // TODO(ts): [D4-table] lookup table: becomes data in the export, no code.
-  // TODO(kt): [D4-table] lookup table: becomes a map in the export, no code.
   static PlateTheme _themeOf(PlateTheme base, String Function(String) group) =>
       _classes[_letter(group('serial'))]?.$2 ?? base;
 

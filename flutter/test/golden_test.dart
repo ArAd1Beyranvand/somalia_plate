@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:plate_core/plate_core.dart';
+import 'package:plate_core/testing.dart';
 import 'package:somalia_plate/somalia_plate.dart';
 
 /// One golden per design, rendered with real faces so the ink can be measured
@@ -37,35 +37,16 @@ void main() {
         values.substring(0, 2),
         values.substring(2),
       ]);
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: SizedBox(
-                width: 520,
-                height: 520 * spec.canvasHeight / spec.canvasWidth,
-                child: PlateView(
-                  controller: controller,
-                  theme: theme,
-                  country: SomaliaCountry.somalia,
-                ),
-              ),
-            ),
-          ),
-        ),
+      await pumpPlateGolden(
+        tester,
+        controller,
+        'goldens/$name.png',
+        theme: theme,
+        scoped: false,
+        country: SomaliaCountry.somalia,
+        stage: Size(520, 520 * spec.canvasHeight / spec.canvasWidth),
+        decodeDelay: const Duration(milliseconds: 50),
       );
-      // The arms decode off the real event loop, which fake time does not
-      // advance; runAsync gives them a real slice of time.
-      await tester.runAsync(
-        () => Future<void>.delayed(const Duration(milliseconds: 50)),
-      );
-      await tester.pumpAndSettle();
-      await expectLater(
-        find.byType(PlateView),
-        matchesGoldenFile('goldens/$name.png'),
-      );
-      await tester.pumpWidget(const SizedBox.shrink());
-      controller.dispose();
     });
   }
 

@@ -6,13 +6,24 @@ GO VEGAN 🌱
 
 From the mighty people of Iran to the resilient people of Somalia to view examples:
 
-https://platexample.ir/#/discover/somalia
+https://platexample.ir/#/discover/somalia:flutter
 
 # somalia_plate
 
-Somali licence plates for `plate_core`: only the bilingual plate is documented, so the colonial and Puntland series are not implemented.
+Somalia's licence plates for the plate_core library — the bilingual SOM / الصومال plate with the coat of arms, its theme and an advisory validator.
 
-## Install
+## Languages
+
+| Language | Folder | Example |
+| --- | --- | --- |
+| Flutter / Dart | [`flutter/`](https://github.com/ArAd1Beyranvand/somalia_plate/tree/main/flutter) | [platexample](https://platexample.ir/#/discover/somalia:flutter) |
+| Kotlin | [`kotlin/`](https://github.com/ArAd1Beyranvand/somalia_plate/tree/main/kotlin) | [platexample](https://platexample.ir/#/discover/somalia:kotlin) |
+| Python | [`python/`](https://github.com/ArAd1Beyranvand/somalia_plate/tree/main/python) | [platexample](https://platexample.ir/#/discover/somalia:python) |
+| TypeScript | [`typescript/`](https://github.com/ArAd1Beyranvand/somalia_plate/tree/main/typescript) | [platexample](https://platexample.ir/#/discover/somalia:typescript) |
+
+## Quick start
+
+### Install
 
 ```yaml
 dependencies:
@@ -20,7 +31,7 @@ dependencies:
   somalia_plate: ^0.1.0
 ```
 
-## Use
+### Use
 
 ```dart
 import 'package:plate_core/plate_core.dart';
@@ -35,17 +46,24 @@ PlateCanvas(
 );
 ```
 
-## Contains
+## Specs
 
-- `SomaliaCountry` — country panel: `somalia`.
-- `SomalilandCountry` — country panel: `somaliland`.
-- `SomaliaPlates` — 1 plate spec: `standard`.
-- `SomalilandPlates` — 3 plate specs: `private`, `official`, `bilingual`.
-- `SomaliaThemes` — 1 theme: `standard`.
-- `SomalilandThemes` — 5 themes: `private`, `government`, `ngo`, `un`, `diplomatic`.
-- `SomaliaPlateValidator` — advisory validator; flags the frame, never blocks a keystroke.
-- `SomalilandValidator` — advisory validator; flags the frame, never blocks a keystroke.
-- 1 bundled asset (`Coat_of_arms_of_Somalia.png`).
+Each spec is one plate layout.
+
+- `SomaliaPlates.standard` — id `so.standard`
+
+## Themes
+
+- `SomaliaThemes.standard`
+
+## Change it
+
+`PlateCanvas` takes `spec:` (an entry of `SomaliaPlates`) and `theme:` (an entry of `SomaliaThemes`). Set `validator:` to `SomaliaPlateValidator()` and `autoValidate: true` to show validation hints.
+
+## Also included
+
+- `SomaliaCountry` — the country panel.
+- `SomaliaPlateValidator` — the plate validator.
 
 ## Plates
 
@@ -71,3 +89,6 @@ article names no Israel-specific value.
 
 Painted by [`plate_core`](https://pub.dev/packages/plate_core); alphabets shared through [`plate_alphabet`](https://pub.dev/packages/plate_alphabet); optional character picker in [`plate_keypad`](https://pub.dev/packages/plate_keypad).
 
+## License
+
+See [LICENSE](https://github.com/ArAd1Beyranvand/somalia_plate/blob/main/LICENSE).
