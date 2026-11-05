@@ -1,4 +1,4 @@
-import { type PlateEntry, type PlateValidation, type PlateValidator, invalid, restrictionVerdict, valid } from '../../core/validators/plate_validator';
+import { type PlateEntry, type PlateValidation, type PlateValidator, invalid, restrictionVerdict, valid } from 'plate_core/core/validators/plate_validator';
 
 /** Administrative division codes (article table): Awdal, Maroodi Jeex, Sool,
  * Sanaag, Sahil, Togdheer. */

@@ -1,4 +1,4 @@
-import { PlateCheck, RuledPlateValidator } from '../../core/validators/plate_validator';
+import { PlateCheck, RuledPlateValidator } from 'plate_core/core/validators/plate_validator';
 
 /** Judges a `SomaliaPlates` value, two letters and four digits (`AD 4657`).
  * Reports, never bars a keystroke. The shape is read off the one documented
